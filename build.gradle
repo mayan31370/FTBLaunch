@@ -203,27 +203,7 @@ def getCheckedOutGitCommitHash() {
     refHead.text.trim().take takeFromHash
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-            artifact file(project.tasks.jar.getArchivePath().getPath().replace(".jar", ".exe"))
-            artifact file(project.tasks.jar.getArchivePath().getPath().replace(".jar", ".zip").replace("libs", "distributions"))
-        }
-    }
 
-    repositories {
-        maven {
-            if (project.hasProperty("s3_url")) {
-                url "s3://${s3_url}"
-            }
-            credentials(AwsCredentials) {
-                accessKey "${s3_key}"
-                secretKey "${s3_secret}"
-            }
-        }
-    }
-}
 if (project.hasProperty("local_maven")) {
     uploadArchives {
         repositories {

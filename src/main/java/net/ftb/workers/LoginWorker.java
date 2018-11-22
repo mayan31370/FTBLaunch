@@ -44,36 +44,37 @@ public class LoginWorker extends SwingWorker<String, Void> {
     @Override
     protected String doInBackground () {
         Benchmark.start("LoginWorker");
-        try {
-            if (Main.isAuthlibReadyToUse()) {
-                try {
-                    LoginResponse resp = AuthlibHelper.authenticateWithAuthlib(username, password, mojangData, selectedProfile);
-                    this.resp = resp;
-                    Benchmark.logBenchAs("LoginWorker", "Login Worker Run");
-                    if (resp != null && resp.getUsername() != null && !resp.getUsername().isEmpty()) {
-                        if (resp.getSessionID() != null) {
-                            return "good";
-                        } else {
-                            return "offline";
-                        }
-                    }
-                    if (resp == null) {
-                        return "nullResponse";
-                    }
-                    if (resp.getUsername() == null) {
-                        return "NullUsername";
-                    }
-                    return "bad";
-                } catch (Exception e) {
-                    Logger.logError("Error using authlib", e);
-                }
-            } else {
-                ErrorUtils.tossError("Authlib Unavaible. Please check your log for errors. If you contact FTB support attach launcher log or link to log in your request.");
-            }
-        } catch (Exception e) {
-            ErrorUtils.tossError("Exception occurred, minecraft servers might be down. Check @ help.mojang.com");
-        }
-        return "";
+        return "good";
+//        try {
+//            if (Main.isAuthlibReadyToUse()) {
+//                try {
+//                    LoginResponse resp = AuthlibHelper.authenticateWithAuthlib(username, password, mojangData, selectedProfile);
+//                    this.resp = resp;
+//                    Benchmark.logBenchAs("LoginWorker", "Login Worker Run");
+//                    if (resp != null && resp.getUsername() != null && !resp.getUsername().isEmpty()) {
+//                        if (resp.getSessionID() != null) {
+//                            return "good";
+//                        } else {
+//                            return "offline";
+//                        }
+//                    }
+//                    if (resp == null) {
+//                        return "nullResponse";
+//                    }
+//                    if (resp.getUsername() == null) {
+//                        return "NullUsername";
+//                    }
+//                    return "bad";
+//                } catch (Exception e) {
+//                    Logger.logError("Error using authlib", e);
+//                }
+//            } else {
+//                ErrorUtils.tossError("Authlib Unavaible. Please check your log for errors. If you contact FTB support attach launcher log or link to log in your request.");
+//            }
+//        } catch (Exception e) {
+//            ErrorUtils.tossError("Exception occurred, minecraft servers might be down. Check @ help.mojang.com");
+//        }
+//        return "";
 
     }
 
